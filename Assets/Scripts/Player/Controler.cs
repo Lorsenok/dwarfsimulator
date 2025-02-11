@@ -1,13 +1,13 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Controler : MonoBehaviour
+public class Controler : NetworkBehaviour
 {
     public bool CanMove { get; set; } = true;
 
     public float AdditionalSpeed { get; set; } = 0f;
     public float AdditionalAcceleration { get; set; } = 0f;
     public float AdditionalDeceleration { get; set; } = 0f;
-
 
     [SerializeField] private AudioSource sound;
     [SerializeField] private float soundBlockTimeSet;
@@ -22,6 +22,9 @@ public class Controler : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)] private float controlsDeadZone = 0.1f;
     [SerializeField, Range(0f, 1f)] private float deceleraitionDeadZone = 0.05f;
+
+    [SerializeField] private GameObject cameraPrefab;
+    [SerializeField] private Transform cameraPoint;
 
     private Vector3 curSpeed = Vector2.zero;
     private Vector3 controls = Vector2.zero;
@@ -66,6 +69,8 @@ public class Controler : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
+
         if (rg.linearVelocity.x > 0.1f | rg.linearVelocity.x < -0.1f | rg.linearVelocity.z > 0.1f | rg.linearVelocity.z < -0.1f && sound != null)
         {
             if (!sound.isPlaying && curSoundBlockTime <= 0)
@@ -78,5 +83,14 @@ public class Controler : MonoBehaviour
 
         if (CanMove) Move();
         else if (sound != null) sound.Stop();
+    }
+
+    private void Start()
+    {
+        if (!IsOwner) return;
+
+        Instantiate(cameraPrefab).TryGetComponent(out CameraMover cam);
+        cam.InitialCamera = cameraPoint;
+        cam.ResetPosition();
     }
 }
