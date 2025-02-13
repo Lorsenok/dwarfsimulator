@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,12 +33,22 @@ public class SceneSwitcher : MonoBehaviour
     {
         _newSceneIndexId = index;
         _opacityTarget = 1;
+        
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
     }
 
     public void ChangeScene(string index)
     {
         _newSceneIndexName = index;
         _opacityTarget = 1;
+
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
     }
 
     private void Update()

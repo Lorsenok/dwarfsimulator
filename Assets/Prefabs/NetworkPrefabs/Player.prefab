@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 3568072447557354816}
   - component: {fileID: 4799444863115086905}
   - component: {fileID: 4191967598810408850}
-  - component: {fileID: -7057088378886255833}
+  - component: {fileID: -5281755948494211665}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -251,7 +251,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 1}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &-7057088378886255833
+--- !u!114 &-5281755948494211665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,11 +260,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4395343809361396414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: ce2ef3d7493b39a4c8dd699e5b50bf97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  NetworkTransformExpanded: 0
+  NetworkTransformExpanded: 1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0

@@ -5,6 +5,10 @@ using System.Net.Sockets;
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -14,46 +18,74 @@ public class ServerButton : GameButton
 {
     [Header("Server")]
     [SerializeField] private bool create;
-    [SerializeField] private TMP_InputField ip;
-    [SerializeField] private TMP_InputField port;
+    [SerializeField] private TMP_InputField code;
     [SerializeField] private GameObject[] destroyObjects;
-
-    private void Start()
+    [SerializeField] private TextMeshProUGUI codeText;
+    public void Start()
     {
-        var host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach (var ip in host.AddressList)
+        NetworkManager.Singleton.OnClientStarted += OnClientStart;
+    }
+
+    public async override void Update()
+    {
+        base.Update();
+        if (isMousePointing && Input.GetMouseButtonUp(mouseButton))
         {
-            if (ip.AddressFamily == AddressFamily.InterNetwork) // Get IPv4 address
+            if (create)
             {
-                this.ip.text = ip.ToString();
+                try
+                {
+                    Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+
+                    string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                    codeText.text += joinCode;
+
+                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
+                        allocation.RelayServer.IpV4,
+                        (ushort)allocation.RelayServer.Port,
+                        allocation.AllocationIdBytes,
+                        allocation.Key,
+                        allocation.ConnectionData
+                        );
+
+                    NetworkManager.Singleton.StartHost();
+                }
+                catch (RelayServiceException ex)
+                {
+                    Debug.LogException(ex);
+                }
+            }
+            else if (code.text != string.Empty && code.text != "")
+            {
+                try
+                {
+                    JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(code.text);
+
+                    NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
+                        allocation.RelayServer.IpV4,
+                        (ushort)allocation.RelayServer.Port,
+                        allocation.AllocationIdBytes,
+                        allocation.Key,
+                        allocation.ConnectionData,
+                        allocation.HostConnectionData
+                        );
+
+                    NetworkManager.Singleton.StartClient();
+                }
+                catch (RelayServiceException ex)
+                {
+                    Debug.LogException(ex);
+                }
             }
         }
     }
 
-    public override void Update()
+    private void OnClientStart()
     {
-        base.Update();
-        if (isMousePointing && Input.GetMouseButtonUp(mouseButton) && ip.text != string.Empty && ip.text != "" && port.text != string.Empty && port.text != "")
+        Destroy(gameObject);
+        foreach (GameObject obj in destroyObjects)
         {
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(ip.text, (ushort)Convert.ToInt32(port.text));
-
-            if (create)
-            {
-                NetworkManager.Singleton.StartHost();
-            }
-            else
-            {
-                NetworkManager.Singleton.StartClient();
-            }
-        }
-
-        if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost)
-        {
-            Destroy(gameObject);
-            foreach (GameObject obj in destroyObjects)
-            {
-                Destroy(obj);
-            }
+            Destroy(obj);
         }
     }
 }
