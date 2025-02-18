@@ -9,25 +9,25 @@ public class CustomAnimator : MonoBehaviour
     [SerializeField] private bool loop;
 
     private float curTimePerFrame = 0f;
-    [SerializeField] private int curSprite = 0;
+    public int CurSprite { get; set; }
 
     private void Start()
     {
-        spr.sprite = sprites[curSprite];
+        spr.sprite = sprites[CurSprite];
     }
 
     private void Update()
     {
-        if (!loop && curSprite == sprites.Length - 1) return;
-        if (loop && curSprite == sprites.Length - 1) curSprite = 0;
+        if (!loop && CurSprite == sprites.Length - 1) return;
+        if (loop && CurSprite == sprites.Length - 1) CurSprite = 0;
 
         curTimePerFrame -= Time.deltaTime;
 
         if (curTimePerFrame <= 0f)
         {
             curTimePerFrame = timePerFrame;
-            curSprite++;
-            spr.sprite = sprites[curSprite];
+            CurSprite++;
+            spr.sprite = sprites[CurSprite];
         }
     }
 }

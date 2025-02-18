@@ -6,4 +6,5 @@ public class PlayerInput
 {
     public static bool OpenMenu() => Input.GetKeyDown(KeyCode.Escape);
     public static bool OpenTabMenu() => Input.GetKey(KeyCode.Tab);
+    public static bool Dig() => Input.GetMouseButton(0);
 }
