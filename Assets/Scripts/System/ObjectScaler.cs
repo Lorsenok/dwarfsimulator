@@ -6,7 +6,7 @@ public class ObjectScaler : MonoBehaviour
 {
     [SerializeField] private Vector2 defaultRatio;
 
-    private Vector2 startScale;
+    private Vector3 startScale;
 
     private void Awake()
     {
@@ -18,6 +18,6 @@ public class ObjectScaler : MonoBehaviour
         float curRatio = (float)Screen.width / (float)Screen.height;
         float defRatio = defaultRatio.x / defaultRatio.y;
 
-        transform.localScale = new Vector2(startScale.x, startScale.y) / defRatio * curRatio;
+        transform.localScale = new Vector3(startScale.x, startScale.y, startScale.z) / defRatio * curRatio;
     }
 }

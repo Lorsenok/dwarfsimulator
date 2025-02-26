@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -48,6 +50,7 @@ public class SceneSwitcher : MonoBehaviour
         if (NetworkManager.Singleton != null)
         {
             NetworkManager.Singleton.Shutdown();
+            AuthenticationService.Instance.SignOut();
         }
     }
 

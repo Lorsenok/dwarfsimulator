@@ -11,6 +11,8 @@ public class CameraMover : MonoBehaviour
     public List<Transform> InstantPositions { get; set; }
     [SerializeField] private float defaultSpeed;
 
+    [SerializeField] private Camera cam;
+
     public Transform InitialCamera { get; set; }
 
     public void ResetPosition()
@@ -37,5 +39,7 @@ public class CameraMover : MonoBehaviour
         if (transform == null || curPosition == null) return;
         transform.position = Vector3.Lerp(transform.position, curPosition.position, Time.deltaTime * (defaultSpeed + AdditionalSpeed));
         transform.rotation = Quaternion.Lerp(transform.rotation, curPosition.rotation, Time.deltaTime * (defaultSpeed + AdditionalSpeed));
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, Config.FOV, Time.deltaTime * defaultSpeed);
     }
 }

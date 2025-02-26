@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class SpawnOnDestroy : MonoBehaviour
@@ -11,7 +12,7 @@ public class SpawnOnDestroy : MonoBehaviour
         if (!gameObject.scene.isLoaded) return;
         foreach (GameObject obj in spawnOnDestroyObjects)
         {
-            Instantiate(obj, transform.position, obj.transform.rotation);
+            Instantiate(obj, transform.position, obj.transform.rotation); 
         }
     }
 }

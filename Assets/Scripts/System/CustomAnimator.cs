@@ -5,7 +5,7 @@ public class CustomAnimator : MonoBehaviour
     [SerializeField] private SpriteRenderer spr;
 
     [SerializeField] private Sprite[] sprites;
-    [SerializeField] private float timePerFrame;
+    public float TimePerFrame;
     [SerializeField] private bool loop;
 
     private float curTimePerFrame = 0f;
@@ -25,7 +25,7 @@ public class CustomAnimator : MonoBehaviour
 
         if (curTimePerFrame <= 0f)
         {
-            curTimePerFrame = timePerFrame;
+            curTimePerFrame = TimePerFrame;
             CurSprite++;
             spr.sprite = sprites[CurSprite];
         }
