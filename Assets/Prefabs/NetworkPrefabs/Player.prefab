@@ -419,6 +419,9 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   particles: {fileID: 4595887041881857919, guid: 43b8336f8bbfb6e49a2a97046217a176, type: 3}
   anim: {fileID: 6799577949227557210}
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 33
   frame: 3
   distance: 10
   speed: 1

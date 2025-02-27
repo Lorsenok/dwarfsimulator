@@ -12,6 +12,9 @@ public class Block : DestroyableObject
 
     [SerializeField] private float oresStartVelocityMultiplier;
 
+    [SerializeField] private Collider coll;
+    [SerializeField] private float boxColliderDisableDistance;
+
     public override void GetDamage(float damage)
     {
         base.GetDamage(damage);
@@ -49,5 +52,12 @@ public class Block : DestroyableObject
     {
         SpawnOreServerRpc();
         base.Die();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (CameraMover.Instance == null) return;
+        coll.enabled = Vector3.Distance(CameraMover.Instance.transform.position, transform.position) > boxColliderDisableDistance;
     }
 }

@@ -172,7 +172,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   rg: {fileID: 5315171014810337701}
   speed: 10
-  destroyDistance: 0.5
+  destroyDistance: 1
   chancePoints: 2
   background: {fileID: 7625660222786167531}
   backgroundSizeChangeSpeed: 1

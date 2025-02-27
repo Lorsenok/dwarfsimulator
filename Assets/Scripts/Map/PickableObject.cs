@@ -48,6 +48,6 @@ public class PickableObject : NetworkBehaviour
         rg.useGravity = false;
         
         transform.position = Vector3.Lerp(transform.position, followTarget.position, Time.deltaTime * speed);
-        if (Vector2.Distance(transform.position, followTarget.position) < destroyDistance) DieServerRpc();
+        if (Vector3.Distance(transform.position, followTarget.position) < destroyDistance) DieServerRpc();
     }
 }

@@ -6,6 +6,7 @@ public class PlayerDig : NetworkBehaviour
 {
     [SerializeField] private GameObject particles;
     [SerializeField] private CustomAnimator anim;
+    [SerializeField] private LayerMask hitLayer;
     [SerializeField] private int frame;
     [SerializeField] private float distance;
     [SerializeField] private float speed = 1f;
@@ -23,10 +24,10 @@ public class PlayerDig : NetworkBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        Physics.Raycast(ray, out hit, Mathf.Infinity, hitLayer);
         if (hit.collider == null) return;
 
-        if (Vector2.Distance(hit.point, transform.position) > distance) return;
+        if (Vector3.Distance(hit.point, transform.position) > distance) return;
         Instantiate(particles, hit.point, Quaternion.identity);
 
         hit.collider.gameObject.TryGetComponent(out IDamageble damageble);
