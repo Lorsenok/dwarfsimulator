@@ -84,7 +84,9 @@ Material:
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
+    - _AlphaClipThershold: 0.1
     - _AlphaToMask: 0
+    - _AmbientOcclusion: 1
     - _Ambient_Occlusion: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -98,6 +100,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _ExpireDistance: 1
+    - _ExpirePower: 1
+    - _Float: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

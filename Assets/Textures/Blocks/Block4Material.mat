@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Block4Material
-  m_Shader: {fileID: -6465566751694194690, guid: 9579dc6323d51ec47b44376f99ffd217, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 459e094706445bb48811117e2af7dccb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -97,7 +97,9 @@ Material:
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
+    - _AlphaClipThershold: 0
     - _AlphaToMask: 0
+    - _AmbientOcclusion: 0
     - _Ambient_Occlusion: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -111,6 +113,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _ExpireDistance: 8
+    - _ExpirePower: 5
+    - _Float: 0.1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
