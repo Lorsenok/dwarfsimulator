@@ -15,7 +15,7 @@ public class IDManager : NetworkBehaviour
     public void Start()
     {
         gameObjects.Add(this);
-        if (IsHost || !NetworkManager.IsConnectedClient) ID.Value = curId;
+        if (IsHost) ID.Value = curId;
         curId++;
         if (testValue) Debug.Log(ID.Value);
     }

@@ -35,7 +35,7 @@ public class PlayerDig : NetworkBehaviour
         if (IsHost) damageble.GetDamage(damage);
         else
         {
-            DamageServerRpc(damage, damageble.GetObject().GetComponent<IDManager>().ID.Value);
+            DamageServerRpc(damage, damageble.GetObject().GetComponentInChildren<IDManager>().ID.Value);
         }
     }
 

@@ -12,7 +12,7 @@ public class AdditionalDig : NetworkBehaviour, IDamageble
     private bool appeared = false;
 
     [SerializeField] private RectTransform canvas;
-    [SerializeField] private DestroyableObject damagebleObject;
+    public DestroyableObject DamagebleObject { get; set; }
 
     [SerializeField] private float damageMultiplier;
 
@@ -20,7 +20,7 @@ public class AdditionalDig : NetworkBehaviour, IDamageble
 
     public void GetDamage(float damage)
     {
-        damagebleObject.GetDamage(damage * damageMultiplier);
+        DamagebleObject.GetDamage(damage * damageMultiplier);
         Instantiate(particles, transform.position, Quaternion.identity).GetComponent<NetworkObject>().Spawn(true);
         SetRandomPosition();
     }
@@ -30,14 +30,9 @@ public class AdditionalDig : NetworkBehaviour, IDamageble
         return gameObject;
     }
 
-    private void SetRandomPosition()
+    public void SetRandomPosition()
     {
         transform.localPosition = new Vector3(Random.Range(-canvas.sizeDelta.x, canvas.sizeDelta.x), Random.Range(-canvas.sizeDelta.x, canvas.sizeDelta.y), 0);
-    }
-
-    private void Start()
-    {
-        damagebleObject.OnDamage += SetRandomPosition;
     }
 
     public void Appear()

@@ -15,6 +15,8 @@ public class Block : DestroyableObject
     [SerializeField] private Collider coll;
     [SerializeField] private float boxColliderDisableDistance;
 
+    public bool SpawnOreOnDestroy { get; set; } = true;
+
     public override void GetDamage(float damage)
     {
         base.GetDamage(damage);
@@ -50,7 +52,7 @@ public class Block : DestroyableObject
 
     public override void Die()
     {
-        SpawnOreServerRpc();
+        if (SpawnOreOnDestroy) SpawnOreServerRpc();
         base.Die();
     }
 
@@ -59,5 +61,13 @@ public class Block : DestroyableObject
         base.Update();
         if (CameraMover.Instance == null) return;
         coll.enabled = Vector3.Distance(CameraMover.Instance.transform.position, transform.position) > boxColliderDisableDistance;
+    }
+    
+    private void Start()
+    {
+        if (!IsOwner) return;
+        
+        addDig.DamagebleObject = this;
+        OnDamage += addDig.SetRandomPosition;
     }
 }
